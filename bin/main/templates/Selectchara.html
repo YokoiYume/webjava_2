@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>キャラクター選択</title>
+</head>
+<body>
+<form method="post" action="Cmd" th:object="${ohage}">
+<p>選択してください<br>
+<p>職業：</p>
+<input type="radio" name="work" value="勇者"> 勇者
+<input type="radio" name="work" value="魔法使い"> 魔法使い
+<br>
+<input type="text" name="name" value="">
+
+
+<p><input type="submit" value="次へ"></p>
+
+</form>
+
+</body>
+</html>
