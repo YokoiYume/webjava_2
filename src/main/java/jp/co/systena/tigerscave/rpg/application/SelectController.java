@@ -1,5 +1,8 @@
 package jp.co.systena.tigerscave.rpg.application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +36,6 @@ public class SelectController {
 	public ModelAndView cmd(ModelAndView mav,@ModelAttribute Charaform form) {
 
 		Work work = (Work) session.getAttribute("okabe");
-
 		if(form.getWork().equals("勇者")) {
 
 			work = new Brave();
@@ -45,10 +47,29 @@ public class SelectController {
 		}
 
 		work.setName(form.getName());
-		session.setAttribute("okabe", work);
 
-		mav.setViewName("Cmd");
-		mav.addObject("cmdform",form);
+		List<String> list = new ArrayList<String>();
+		list.add(work.getName());
+
+		if(list.size()==0){
+		 mav.setViewName("Selectchara");
+		}else{
+			list.add(work.getName());
+			session.setAttribute("okabe", work);
+			mav.setViewName("Cmd");
+			mav.addObject("cmdform",form);
+
+		}
+
+
+
+
+
+
+
+//		session.setAttribute("okabe", work);
+//		mav.setViewName("Cmd");
+//		mav.addObject("cmdform",form);
 
 		return mav;
 	}
