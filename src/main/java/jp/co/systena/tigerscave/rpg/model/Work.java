@@ -4,6 +4,7 @@ public abstract class Work {
 
 	private String name;
 
+
 	public abstract void fight();
 
 	public String getName() {
@@ -13,6 +14,6 @@ public abstract class Work {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	public abstract void cure();
 
 }

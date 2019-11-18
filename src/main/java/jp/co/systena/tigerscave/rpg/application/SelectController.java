@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.systena.tigerscave.rpg.model.Brave;
 import jp.co.systena.tigerscave.rpg.model.Charaform;
+import jp.co.systena.tigerscave.rpg.model.Monk;
 import jp.co.systena.tigerscave.rpg.model.Witch;
 import jp.co.systena.tigerscave.rpg.model.Work;
 
@@ -37,10 +38,12 @@ public class SelectController {
 
 			work = new Brave();
 
-
 		}else if(form.getWork().equals("魔法使い")){
 			work = new Witch();
+		}else if(form.getWork().equals("僧侶")) {
+			work = new Monk();
 		}
+
 		work.setName(form.getName());
 		session.setAttribute("okabe", work);
 
@@ -49,13 +52,27 @@ public class SelectController {
 
 		return mav;
 	}
-	@RequestMapping(value = "/result", method = RequestMethod.GET) // URLとのマッピング
-	public ModelAndView res(ModelAndView mav) {
+
+	@RequestMapping(value = "/result", params = "fight",method = RequestMethod.POST) // URLとのマッピング
+	public ModelAndView resfight(ModelAndView mav) {
 
 		Work work = (Work) session.getAttribute("okabe");
 		work.fight();
 		mav.addObject("okabe",work);
 		mav.setViewName("result");
+		mav.addObject("flg","fight");
+
+		return mav;
+	}
+	@RequestMapping(value = "/result", params = "cure",method = RequestMethod.POST) // URLとのマッピング
+	public ModelAndView rescure(ModelAndView mav) {
+
+		Work work = (Work) session.getAttribute("okabe");
+		work.cure();
+		mav.addObject("okabe",work);
+		mav.setViewName("result");
+		mav.addObject("flg","cure");
+
 
 		return mav;
 	}

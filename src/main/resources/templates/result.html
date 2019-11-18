@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <title>結果画面</title>
-<p class="work" th:text="${okabe.attack}"></p>
+
 </head>
 <body>
-
+<div th:if="${flg == 'fight'}">
+<p class="work" th:text="${okabe.attack}" ></p>
+</div>
+<div th:if="${flg == 'cure'}">
+<p class="work" th:text="${okabe.portion}"></p>
+</div>
 </body>
+
 </html>

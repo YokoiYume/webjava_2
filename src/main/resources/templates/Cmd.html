@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>コマンド画面</title>
-<div>
-	<span>職業：</span>
-	<span class="work" th:text="${cmdform.work}"></span>
-</div>
-<div>
-	<span>名前：</span>
-	<span class="work" th:text="${cmdform.name}"></span>
-</div>
-<div>
-	<a href="/result">
-		<button type="button">戦う</button>
-	</a>
-</div>
+
+
 </head>
 <body>
-
+	<form action="/result" method="post">
+		<div>
+			<span>職業：</span> <span class="work" th:text="${cmdform.work}"></span>
+		</div>
+		<div>
+			<span>名前：</span> <span class="work" th:text="${cmdform.name}"></span>
+		</div>
+		<div>
+			<input type="submit" name="fight" value="戦う">戦う
+			<input type="submit" name="cure" value="回復">回復
+		</div>
+	</form>
 </body>
 </html>
