@@ -7,12 +7,12 @@
 
 </head>
 <body>
-	<form action="/result" method="post">
+	<form action="/result" method="post"th:each="okabe: ${cmdform}" >
 		<div>
-			<span>職業：</span> <span class="work" th:text="${cmdform.work}"></span>
+			<span>職業：</span> <span class="work" th:text="${okabe.work}"></span>
 		</div>
 		<div>
-			<span>名前：</span> <span class="work" th:text="${cmdform.name}"></span>
+			<span>名前：</span> <span class="work" th:text="${okabe.name}"></span>
 		</div>
 		<div>
 			<input type="submit" name="fight" value="戦う">
@@ -20,17 +20,6 @@
 		</div>
 	</form>
 
-	<form action="/result" method="post">
-		<div>
-			<span>職業：</span> <span class="work" th:text="${cmdform.work}"></span>
-		</div>
-		<div>
-			<span>名前：</span> <span class="work" th:text="${cmdform.name}"></span>
-		</div>
-		<div>
-			<input type="submit" name="fight" value="戦う">
-			<input type="submit" name="cure" value="回復">
-		</div>
-	</form>
+
 </body>
 </html>

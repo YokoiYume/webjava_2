@@ -28,72 +28,84 @@ public class SelectController {
 	public ModelAndView sel(ModelAndView mav) {
 
 		mav.setViewName("Selectchara");
-		mav.addObject("ohage",new Charaform());
+		mav.addObject("ohage", new Charaform());
 
 		return mav;
 	}
+
 	@RequestMapping(value = "/Cmd", method = RequestMethod.POST) // URLとのマッピング
-	public ModelAndView cmd(ModelAndView mav,@ModelAttribute Charaform form) {
+	public ModelAndView cmd(ModelAndView mav, @ModelAttribute Charaform form) {
 
-		Work work = (Work) session.getAttribute("okabe");
-		if(form.getWork().equals("勇者")) {
+		Work work = null;
+		List<Work> workList = (List<Work>) session.getAttribute("okabe");
+		if (workList == null) {
 
-			work = new Brave();
-
-		}else if(form.getWork().equals("魔法使い")){
-			work = new Witch();
-		}else if(form.getWork().equals("僧侶")) {
-			work = new Monk();
+			workList = new ArrayList<Work>();
+			session.setAttribute("okabe", workList);
 		}
 
-		work.setName(form.getName());
+		if (workList.size() < 2) {
 
-		List<String> list = new ArrayList<String>();
-		list.add(work.getName());
-
-		if(list.size()==0){
-		 mav.setViewName("Selectchara");
-		}else{
-			list.add(work.getName());
-			session.setAttribute("okabe", work);
+			if (form.getWork().equals("勇者")) {
+				work = new Brave();
+			} else if (form.getWork().equals("魔法使い")) {
+				work = new Witch();
+			} else if (form.getWork().equals("僧侶")) {
+				work = new Monk();
+			}
+			work.setName(form.getName());
+			work.setWork(form.getWork());
+			workList.add(work);
+			session.setAttribute("okabe", workList);
+			if(workList.size()==2) {
 			mav.setViewName("Cmd");
-			mav.addObject("cmdform",form);
+			mav.addObject("cmdform",workList);
+			}else{
+				mav.setViewName("Selectchara");
+			}
 
 		}
 
-
-
-
-
-
+//		List<Work> list = new ArrayList<Work>();
+//		list.add(work.getName());
+//
+//		if(list.size()==0){
+//		 mav.setViewName("Selectchara");
+//		}else{
+//			list.add(work.getName());
+//			session.setAttribute("okabe", work);
+//			mav.setViewName("Cmd");
+//			mav.addObject("cmdform",form);
+//
+//		}
 
 //		session.setAttribute("okabe", work);
 //		mav.setViewName("Cmd");
-//		mav.addObject("cmdform",form);
+//		mav.addObject("cmdform", work);
 
 		return mav;
 	}
 
-	@RequestMapping(value = "/result", params = "fight",method = RequestMethod.POST) // URLとのマッピング
+	@RequestMapping(value = "/result", params = "fight", method = RequestMethod.POST) // URLとのマッピング
 	public ModelAndView resfight(ModelAndView mav) {
 
 		Work work = (Work) session.getAttribute("okabe");
 		work.fight();
-		mav.addObject("okabe",work);
+		mav.addObject("okabe", work);
 		mav.setViewName("result");
-		mav.addObject("flg","fight");
+		mav.addObject("flg", "fight");
 
 		return mav;
 	}
-	@RequestMapping(value = "/result", params = "cure",method = RequestMethod.POST) // URLとのマッピング
+
+	@RequestMapping(value = "/result", params = "cure", method = RequestMethod.POST) // URLとのマッピング
 	public ModelAndView rescure(ModelAndView mav) {
 
 		Work work = (Work) session.getAttribute("okabe");
 		work.cure();
-		mav.addObject("okabe",work);
+		mav.addObject("okabe", work);
 		mav.setViewName("result");
-		mav.addObject("flg","cure");
-
+		mav.addObject("flg", "cure");
 
 		return mav;
 	}
